@@ -1,6 +1,25 @@
-# Mercado Campesino
+# Ionic v4 + OAuth2
 
-> App for selling farmer association's products
+> Ionic v4 sidemenu template plus authentication logic with OAuth2 including login page
+
+## How to install the template ##
+
+Clone the repository
+```
+git clone https://github.com/altixco/django-mysql-nginx-docker-productionready project_name
+cd project_name
+```
+
+Remove the git directory
+```
+rm -r ./.git
+```
+
+The command before will remove the `.git` folder so you will have to initialize git:
+```
+git init
+git remote add origin <repository-url>
+```
 
 ## Build Setup ##
 
