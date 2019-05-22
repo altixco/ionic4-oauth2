@@ -1,0 +1,88 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Storage } from '@ionic/storage'
+import { tap } from 'rxjs/operators'
+import { environment } from '../../environments/environment'
+import { UtilsService } from './utils.service';
+import { of, Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private tokenData: any;
+
+  constructor(private http: HttpClient, private storage: Storage, private utils: UtilsService) { }
+
+  public login(email: string, password: string): Observable<any> {
+    const params = new HttpParams()
+      .set('grant_type', 'password')
+      .set('username', email)
+      .set('password', password)
+      .set('client_id', environment.CLIENT_ID);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post('/o/token/', params, { headers }).pipe(
+      tap(tokenData => {
+        this.storage.set('tokenData', tokenData).then(() => {
+          console.log('Login succeeded, token saved');
+        });
+        this.tokenData = tokenData;
+        return tokenData;
+      })
+    )
+  }
+
+  public logout(): Observable<any> {
+    if (!this.utils.isDefined(this.tokenData)) {
+      this.storage.remove("tokenData");
+      return of(true);
+    }
+
+    const params = new HttpParams()
+      .set('token', this.tokenData['access_token'])
+      .set('client_id', environment.CLIENT_ID);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post('/o/revoke_token/', params, { headers }).pipe(
+      tap(() => {
+        this.storage.remove("tokenData");
+        this.tokenData = null;
+      })
+    )
+  }
+
+  public test(): Observable<any> {
+    return this.http.get('/api/inventory/hello').pipe(
+      tap(data => {
+        return data;
+      })
+    )
+  }
+
+  public isLoggedIn(): Boolean {
+    return this.utils.isDefined(this.tokenData);
+  }
+
+  public getAuthorizationHeader(): String {
+    return `${this.tokenData["token_type"]} ${this.tokenData["access_token"]}`;
+  }
+
+  public async loadTokenData(): Promise<any> {
+    try {
+      if (!this.utils.isDefined(this.tokenData)) {
+        this.tokenData = await this.storage.get('tokenData');
+      }
+    } catch {
+      this.tokenData = null;
+    }
+    console.log('Current token data:', this.tokenData);
+    return this.tokenData;
+  }
+}

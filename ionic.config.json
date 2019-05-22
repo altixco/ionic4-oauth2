@@ -1,0 +1,7 @@
+{
+  "name": "mercamp-ionic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
