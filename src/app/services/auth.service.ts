@@ -12,7 +12,11 @@ import { of, Observable } from 'rxjs';
 export class AuthService {
   private tokenData: any;
 
-  constructor(private http: HttpClient, private storage: Storage, private utils: UtilsService) { }
+  constructor(
+    private http: HttpClient,
+    private storage: Storage,
+    private utils: UtilsService
+  ) { }
 
   public login(email: string, password: string): Observable<any> {
     const params = new HttpParams()
@@ -34,6 +38,10 @@ export class AuthService {
         return tokenData;
       })
     )
+  }
+
+  public register(params) {
+    return this.http.post('/api/main/user/register/', params);
   }
 
   public logout(): Observable<any> {

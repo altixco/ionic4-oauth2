@@ -2,14 +2,16 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
+import { environment } from '../environments/environment';
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'landing',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: environment.LOGGED_IN_DEFAULT_PATH,
     loadChildren: './pages/home/home.module#HomePageModule',
     canActivate: [AuthGuard]
   },
@@ -19,9 +21,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'login',
-    loadChildren: './pages/auth/login/login.module#LoginPageModule'
+    path: environment.NOT_LOGGED_IN_DEFAULT_PATH,
+    loadChildren: './pages/landing/landing.module#LandingPageModule'
   },
+  // Login and register page are loaded from landing page as modals
+  /*
+  { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule' },
+  { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
+  */
   // When page is not found
   {
     path: '**',

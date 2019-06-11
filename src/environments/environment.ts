@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   SERVER_URL: '/proxy', // Use development proxy to avoid CORS problem (Check proxy.conf.json)
-  CLIENT_ID: '03Z1U46wujpGV6TeBN0a4wWsNuRLdOy5b9Oc3kHx'
+  CLIENT_ID: '03Z1U46wujpGV6TeBN0a4wWsNuRLdOy5b9Oc3kHx',
+  LOGGED_IN_DEFAULT_PATH: 'home',
+  NOT_LOGGED_IN_DEFAULT_PATH: 'landing'
 };
 
 /*

@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { DialogService } from './services/dialog.service';
 
+import { environment } from '../environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -53,7 +55,7 @@ export class AppComponent {
         console.log(error);
       },
       () => {
-        this.navCtrl.navigateRoot('/login');
+        this.navCtrl.navigateRoot(environment.NOT_LOGGED_IN_DEFAULT_PATH);
       }
     );
   }

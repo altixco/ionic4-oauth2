@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissRegister()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="register(form)" method="post">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="newUser.first_name" #first_name="ngModel" name="first_name" required></ion-input>
+    </ion-item>
+    <small *ngIf="first_name.invalid && first_name.touched" class="validator-error">El campo <b>nombre</b> es obligatorio.</small>
+
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input [(ngModel)]="newUser.last_name" name="last_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="email" [(ngModel)]="newUser.email" #email="ngModel" name="email" required email></ion-input>
+    </ion-item>
+    <small *ngIf="email.invalid && email.touched && email.value==''" class="validator-error">El campo <b>correo</b> es obligatorio.</small>
+    <small *ngIf="email.invalid && email.touched && email.value!=''" class="validator-error">Por favor ingrese un correo válido.</small>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="newUser.password" #password="ngModel" name="password" required></ion-input>
+    </ion-item>
+    <small *ngIf="password.invalid && password.touched" class="validator-error">El campo <b>contraseña</b> es obligatorio.</small>
+
+    <ion-item>
+      <ion-label position="floating">Dirección</ion-label>
+      <ion-input [(ngModel)]="newUser.client.address" name="address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de teléfono</ion-label>
+      <ion-input [(ngModel)]="newUser.client.phone_number" #phone_number="ngModel" name="phone_number" required></ion-input>
+    </ion-item>
+    <small *ngIf="phone_number.invalid && phone_number.touched" class="validator-error">El campo <b>número de teléfono</b> es obligatorio.</small>
+
+    <ion-button type="submit" expand="full" color="danger" [disabled]="form.form.invalid" class="ion-margin-top">Registrarse</ion-button>
+  </form>
+  <p text-center>¿Ya tienes una cuenta?</p>
+  <ion-button expand="full" color="primary" (click)="dismissRegister(true)">Iniciar sesión</ion-button>
+</ion-content>

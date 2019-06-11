@@ -1,25 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>Inicio de sesión</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissLogin()">Cerrar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="login(form)" method="post">
     <ion-item>
-      <ion-label position="floating">Usuario</ion-label>
-      <ion-input ngModel type="email" name="email"></ion-input>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input ngModel type="email" #email="ngModel" name="email" required email></ion-input>
     </ion-item>
-
+    <small *ngIf="email.invalid && email.touched && email.value==''" class="validator-error">El campo <b>correo</b> es obligatorio.</small>
+    <small *ngIf="email.invalid && email.touched && email.value!=''" class="validator-error">Por favor ingrese un correo válido.</small>
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input ngModel type="password" name="password"></ion-input>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input ngModel type="password" #password="ngModel" name="password" required></ion-input>
     </ion-item>
+    <small *ngIf="password.invalid && password.touched" class="validator-error">El campo <b>clave</b> es obligatorio.</small>
 
     <p text-right>¿Olvidaste tu contraseña?</p>
 
-    <ion-button type="submit" expand="full" color="primary">Iniciar Sesión</ion-button>
+    <ion-button type="submit" expand="full" color="primary" [disabled]="form.form.invalid">Iniciar Sesión</ion-button>
   </form>
   <p text-center>No tienes una cuenta?</p>
-  <ion-button expand="full" color="danger" [routerLink]="['/login']">Registrarse</ion-button>
+  <ion-button expand="full" color="danger" (click)="dismissLogin(true)">Registrarse</ion-button>
 </ion-content>
