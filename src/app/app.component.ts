@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
@@ -33,6 +33,7 @@ export class AppComponent {
     private navCtrl: NavController,
     private authService: AuthService,
     private dialogService: DialogService,
+    private events: Events
   ) {
     this.initializeApp();
   }
@@ -41,14 +42,17 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.events.subscribe('user:logout', (message) => {
+        this.logout(message);
+      });
     });
   }
 
   // When logout button from sidebar is pressed
-  logout() {
+  logout(message?) {
     this.authService.logout().subscribe(
       () => {
-        this.dialogService.presentToast('Sesión cerrada correctamente');
+        this.dialogService.presentToast(message || 'Sesión cerrada correctamente');
       },
       error => {
         console.log(error);

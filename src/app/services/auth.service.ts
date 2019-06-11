@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Storage } from '@ionic/storage'
-import { tap } from 'rxjs/operators'
-import { environment } from '../../environments/environment'
+import { Storage } from '@ionic/storage';
+import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 import { UtilsService } from './utils.service';
-import { of, Observable } from 'rxjs';
+import { of, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,31 @@ export class AuthService {
     )
   }
 
+  public refresh() {
+    if (!this.isLoggedIn()) {
+      return throwError('There is not refresh token');
+    }
+
+    const params = new HttpParams()
+      .set('grant_type', 'refresh_token')
+      .set('refresh_token', this.tokenData['refresh_token'])
+      .set('client_id', environment.CLIENT_ID);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post('/o/token/', params, { headers }).pipe(
+      tap(tokenData => {
+        this.storage.set('tokenData', tokenData).then(() => {
+          console.log('Refresh succeeded, token saved');
+        });
+        this.tokenData = tokenData;
+        return tokenData;
+      })
+    )
+  }
+
   public register(params) {
     return this.http.post('/api/main/user/register/', params);
   }
@@ -67,7 +92,7 @@ export class AuthService {
   }
 
   public test(): Observable<any> {
-    return this.http.get('/api/inventory/hello').pipe(
+    return this.http.get('/api/inventory/categories/').pipe(
       tap(data => {
         return data;
       })
@@ -90,6 +115,7 @@ export class AuthService {
     } catch {
       this.tokenData = null;
     }
+    // TODO: Remove console log
     console.log('Current token data:', this.tokenData);
     return this.tokenData;
   }
