@@ -41,7 +41,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.loadTokenData();
     });
   }
 
@@ -55,7 +54,7 @@ export class AppComponent {
         console.log(error);
       },
       () => {
-        this.navCtrl.navigateRoot(environment.NOT_LOGGED_IN_DEFAULT_PATH);
+        this.navCtrl.navigateRoot(`/${environment.NOT_LOGGED_IN_DEFAULT_PATH}`);
       }
     );
   }
