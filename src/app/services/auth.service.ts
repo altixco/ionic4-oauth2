@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { tap } from 'rxjs/operators';
+import { tap, finalize } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { UtilsService } from './utils.service';
 import { of, Observable, throwError } from 'rxjs';
@@ -84,15 +84,15 @@ export class AuthService {
     });
 
     return this.http.post('/o/revoke_token/', params, { headers }).pipe(
-      tap(() => {
+      finalize(() => {
         this.storage.remove("tokenData");
         this.tokenData = null;
       })
-    )
+    );
   }
 
   public test(): Observable<any> {
-    return this.http.get('/api/inventory/categories/').pipe(
+    return this.http.get('/api/inventory/hello').pipe(
       tap(data => {
         return data;
       })

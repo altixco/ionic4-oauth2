@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { catchError, tap, switchMap, filter, take } from 'rxjs/operators';
+import { catchError, switchMap, filter, take, finalize } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { Events } from '@ionic/angular';
 
@@ -61,7 +61,7 @@ export class ApiInterceptor implements HttpInterceptor {
                 this.events.publish('user:logout', 'La sesión ha expirado');
                 return throwError(err);
               }),
-              tap(() => {
+              finalize(() => {
                 // The refresh token has finished, then consequent request should perform refresh
                 this.refreshTokenInProgress = false;
                 // Let's inform other requests that the refreshing token has finished and therefore they can continue

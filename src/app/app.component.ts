@@ -50,14 +50,14 @@ export class AppComponent {
 
   // When logout button from sidebar is pressed
   logout(message?) {
-    this.authService.logout().subscribe(
+    this.authService.logout()
+    .subscribe(
       () => {
         this.dialogService.presentToast(message || 'Sesión cerrada correctamente');
+        this.navCtrl.navigateRoot(`/${environment.NOT_LOGGED_IN_DEFAULT_PATH}`);
       },
       error => {
         console.log(error);
-      },
-      () => {
         this.navCtrl.navigateRoot(`/${environment.NOT_LOGGED_IN_DEFAULT_PATH}`);
       }
     );
