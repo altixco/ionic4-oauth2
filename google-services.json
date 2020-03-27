@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1060950195874",
+    "firebase_url": "https://altix-push-test.firebaseio.com",
+    "project_id": "altix-push-test",
+    "storage_bucket": "altix-push-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060950195874:android:13eab2f79788424052a1fb",
+        "android_client_info": {
+          "package_name": "co.altix.testpushnotifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060950195874-c810kus1kcc3j6r0gj1ir3ju5p6r9as8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtxZPK39qUL5cg6zT1E51JD3KUPCL6nDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060950195874-c810kus1kcc3j6r0gj1ir3ju5p6r9as8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
