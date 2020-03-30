@@ -18,7 +18,7 @@ To add support for push notifications usue:
 git merge origin/push-notifications
 ```
 
-After add support for push notifications you need to specify the configurations files `google-services.json` for android and `GoogleService-Info.plist` for iOS. You can generate this files from firebase console.
+After add support for push notifications you need to add the configurations files (`google-services.json` for android and `GoogleService-Info.plist` for iOS) to the root of the project. You can generate this files from firebase console.
 
 For more information see the [Plugin repository](https://github.com/dpa99c/cordova-plugin-firebasex "Cordova FirebaseX Plugin")
 
