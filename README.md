@@ -4,13 +4,25 @@
 
 ## How to install the template ##
 
-Clone the repository
+### Clone the repository
 ```
-git clone https://github.com/altixco/django-mysql-nginx-docker-productionready project_name
+git clone https://github.com/altixco/ionic4-oauth2.git project_name
 cd project_name
 ```
 
-Remove the git directory
+### Select branches to include
+This repository currently contain a brach that you can use if push notifications are required in the project.
+
+To add support for push notifications usue:
+```
+git merge origin/push-notifications
+```
+
+After add support for push notifications you need to specify the configurations files `google-services.json` for android and `GoogleService-Info.plist` for iOS. You can generate this files from firebase console.
+
+For more information see the [Plugin repository](https://github.com/dpa99c/cordova-plugin-firebasex "Cordova FirebaseX Plugin")
+
+### Remove the git directory
 ```
 rm -r ./.git
 ```
