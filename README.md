@@ -11,7 +11,7 @@ cd project_name
 ```
 
 ### Select branches to include
-This repository currently contain a brach that you can use if push notifications are required in the project.
+This repository currently contains a branch that you can use if push notifications are required in the project.
 
 To add support for push notifications usue:
 ```
