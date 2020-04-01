@@ -13,12 +13,12 @@ cd project_name
 ### Select branches to include
 This repository currently contains a branch that you can use if push notifications are required in the project.
 
-To add support for push notifications usue:
+To add support for push notifications use:
 ```
 git merge origin/push-notifications
 ```
 
-After add support for push notifications you need to add the configurations files (`google-services.json` for android and `GoogleService-Info.plist` for iOS) to the root of the project. You can generate this files from firebase console.
+After adding support for push notifications you need to add the configurations files (`google-services.json` for android and `GoogleService-Info.plist` for iOS) to the root of the project. You can generate this files from firebase console.
 
 For more information see the [Plugin repository](https://github.com/dpa99c/cordova-plugin-firebasex "Cordova FirebaseX Plugin")
 
